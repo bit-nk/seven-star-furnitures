@@ -444,72 +444,35 @@
 
 
 /* ==========================================================================
-   MOBILE ONLY - Layout for auto-play scroll scenes (no pinning)
+   MOBILE ONLY - Tall sections + sticky content for scroll-driven animations
    ========================================================================== */
 
-body.is-mobile .scene-pin-wrap {
-  height: auto;
-  min-height: auto;
-  padding: 3rem 1.5rem;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Dining scene - mobile: keep absolute positioning for zoom animation */
-body.is-mobile .dining-zoom-wrap {
+/* Dining scene: tall outer section, sticky inner content */
+body.is-mobile #dining-scene {
+  height: 300vh;
   position: relative;
-  width: 100%;
-  min-height: 60vh;
+}
+
+body.is-mobile #dining-scene > .scene-pin-wrap {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   overflow: hidden;
-}
-
-body.is-mobile .dining-zoom-img {
-  width: 100%;
-  height: 60vh;
-  object-fit: cover;
-}
-
-body.is-mobile .dining-text-layer {
-  text-align: center;
-  max-width: 100%;
-  width: 90%;
-  margin: 0 auto;
-  border-radius: 14px;
-  padding: 1.5rem;
-}
-
-body.is-mobile .dining-text-2 {
-  text-align: center;
 }
 
 body.is-mobile .dining-text-3 .btn {
   width: 100%;
 }
 
-/* Mosaic scene - mobile: keep stage sized for the animation */
-body.is-mobile .mosaic-scene .scene-pin-wrap {
-  padding: 2rem 1rem;
-}
-
-body.is-mobile .mosaic-stage {
+/* Mosaic scene: tall outer section, sticky inner content */
+body.is-mobile #mosaic-scene {
+  height: 600vh;
   position: relative;
-  width: 100%;
-  min-height: 70vh;
 }
 
-body.is-mobile .mosaic-desc {
-  text-align: center;
-  max-width: 100%;
-  width: 90%;
-  margin: 0 auto;
-  padding: 1.5rem;
-}
-
-body.is-mobile .mosaic-text {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  text-align: center;
-  padding: 1.5rem;
-  border-radius: 14px;
+body.is-mobile #mosaic-scene > .scene-pin-wrap {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
 }

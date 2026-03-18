@@ -174,43 +174,46 @@ if (mosaicScene && !isMobile) {
 }
 
 // ─────────────────────────────────────────────
-// MOBILE — Auto-play animations when sections enter viewport
+// MOBILE — Scroll-driven animations (scrub, no pin — uses tall sections + sticky)
 // ─────────────────────────────────────────────
 if (isMobile) {
 
-  // Dining: zoom-out plays automatically when section is visible
+  // Dining: zoom-out driven by scroll through tall section
+  const mDiningOuter = document.getElementById('dining-scene');
   const mDiningSection = document.getElementById('diningZoom');
-  if (mDiningSection) {
+  if (mDiningOuter && mDiningSection) {
     const mDImg   = mDiningSection.querySelector('.dining-zoom-img');
     const mDText1 = document.getElementById('dText1');
     const mDText2 = document.getElementById('dText2');
     const mDText3 = document.getElementById('dText3');
 
     gsap.set(mDImg, { scale: 1.8, transformOrigin: '50% 40%' });
-    [mDText1, mDText2, mDText3].forEach(function(el) {
-      if (el) gsap.set(el, { opacity: 0, y: 20 });
+
+    const mDiningTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: mDiningOuter,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.5,
+      }
     });
 
-    const mDiningTl = gsap.timeline({ paused: true });
     mDiningTl
-      .to(mDImg, { scale: 1.4, duration: 1.5, ease: 'power1.inOut' })
-      .to(mDText1, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.3)
-      .to(mDText1, { opacity: 0, duration: 0.4 }, 1.5)
-      .to(mDImg, { scale: 1.1, duration: 1.5, ease: 'power1.inOut' }, 1.5)
-      .to(mDText2, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 2.0)
-      .to(mDText2, { opacity: 0, duration: 0.4 }, 3.2)
-      .to(mDImg, { scale: 1, duration: 1.2, ease: 'power2.out' }, 3.2)
-      .to(mDText3, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 3.8);
-
-    ScrollTrigger.create({
-      trigger: mDiningSection,
-      start: 'top 80%',
-      once: true,
-      onEnter: function() { mDiningTl.play(); }
-    });
+      .to(mDText1, { opacity: 1, y: 0, duration: 0.10, ease: 'power2.out' }, 0.02)
+      .from(mDText1, { y: 30, duration: 0.10 }, 0.02)
+      .to(mDImg, { scale: 1.4, duration: 0.28, ease: 'power1.inOut' }, 0)
+      .to(mDText1, { opacity: 0, duration: 0.08 }, 0.22)
+      .to(mDText2, { opacity: 1, y: 0, duration: 0.10, ease: 'power2.out' }, 0.32)
+      .from(mDText2, { y: 30, duration: 0.10 }, 0.32)
+      .to(mDImg, { scale: 1.1, duration: 0.28, ease: 'power1.inOut' }, 0.30)
+      .to(mDText2, { opacity: 0, duration: 0.08 }, 0.54)
+      .to(mDImg, { scale: 1, duration: 0.22, ease: 'power2.out' }, 0.58)
+      .to(mDText3, { opacity: 1, y: 0, duration: 0.12, ease: 'power2.out' }, 0.68)
+      .from(mDText3, { y: 25, duration: 0.12 }, 0.68)
+      .to({}, { duration: 0.15 });
   }
 
-  // Mosaic: images fade in one by one then form grid
+  // Mosaic: scroll-driven through tall section
   const mMosaicScene = document.getElementById('mosaic-scene');
   if (mMosaicScene) {
     var mCells = [];
@@ -221,7 +224,6 @@ if (isMobile) {
     }
     var mMosaicText = document.getElementById('mosaicText');
 
-    // Grid layout values (same as desktop)
     var M = 10, G = 0.6;
     var cW = (80 - G * 2) / 3;
     var rH = (80 - G) / 2;
@@ -246,8 +248,16 @@ if (isMobile) {
     mDescs.forEach(function(d) { if (d) gsap.set(d, { opacity: 0, y: 20 }); });
     if (mMosaicText) gsap.set(mMosaicText, { opacity: 0, y: 25 });
 
-    var mMosaicTl = gsap.timeline({ paused: true });
-    var mt = 0;
+    var mTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: mMosaicScene,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.5,
+      }
+    });
+
+    var t = 0;
 
     mCells.forEach(function(cell, i) {
       if (!cell) return;
@@ -255,57 +265,45 @@ if (isMobile) {
       var desc = mDescs[i];
       var label = cell.querySelector('.mosaic-label');
 
-      // Fade in at full size
-      mMosaicTl.set(cell, { left: mIX + '%', top: mIY + '%', width: mIW + '%', height: mIH + '%' }, mt);
-      mMosaicTl.to(cell, { opacity: 1, duration: 0.3 }, mt);
-      mt += 0.3;
+      mTl.set(cell, { left: mIX + '%', top: mIY + '%', width: mIW + '%', height: mIH + '%' }, t);
+      mTl.to(cell, { opacity: 1, duration: 0.015 }, t);
+      t += 0.015;
 
-      // Show description briefly
       if (desc) {
-        mMosaicTl.to(desc, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, mt);
-        mt += 0.8;
-        mMosaicTl.to(desc, { opacity: 0, duration: 0.3 }, mt);
-        mt += 0.3;
+        mTl.to(desc, { opacity: 1, y: 0, duration: 0.02, ease: 'power2.out' }, t);
+        t += 0.04;
+        mTl.to(desc, { opacity: 0, duration: 0.012 }, t);
+        t += 0.012;
       }
 
-      // Shrink to grid slot
-      mMosaicTl.to(cell, {
+      mTl.to(cell, {
         left: g.x + '%', top: g.y + '%',
         width: cW + '%', height: rH + '%',
-        duration: 0.6, ease: 'power2.inOut',
-      }, mt);
-      if (label) mMosaicTl.to(label, { opacity: 1, duration: 0.2 }, mt + 0.5);
-      mt += 0.7;
+        duration: 0.035, ease: 'power2.inOut',
+      }, t);
+      if (label) mTl.to(label, { opacity: 1, duration: 0.01 }, t + 0.03);
+      t += 0.04;
 
-      // Fade out (unless last)
       if (i < 5) {
-        mMosaicTl.to(cell, { opacity: 0, duration: 0.3 }, mt);
-        mt += 0.4;
+        mTl.to(cell, { opacity: 0, duration: 0.015 }, t);
+        t += 0.02;
       }
     });
 
-    // Reveal all in grid
-    mt += 0.1;
+    t += 0.005;
     for (var p = 0; p < 5; p++) {
       if (!mCells[p]) continue;
       var pg = mGrid[p];
-      mMosaicTl.set(mCells[p], { left: pg.x + '%', top: pg.y + '%', width: cW + '%', height: rH + '%' }, mt);
-      mMosaicTl.to(mCells[p], { opacity: 1, duration: 0.4 }, mt);
+      mTl.set(mCells[p], { left: pg.x + '%', top: pg.y + '%', width: cW + '%', height: rH + '%' }, t);
+      mTl.to(mCells[p], { opacity: 1, duration: 0.02 }, t);
       var lb = mCells[p].querySelector('.mosaic-label');
-      if (lb) mMosaicTl.to(lb, { opacity: 1, duration: 0.2 }, mt + 0.3);
+      if (lb) mTl.to(lb, { opacity: 1, duration: 0.01 }, t + 0.015);
     }
-    mt += 0.5;
+    t += 0.03;
 
     if (mMosaicText) {
-      mMosaicTl.to(mMosaicText, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, mt);
+      mTl.to(mMosaicText, { opacity: 1, y: 0, duration: 0.04, ease: 'power2.out' }, t);
     }
-
-    ScrollTrigger.create({
-      trigger: mMosaicScene,
-      start: 'top 80%',
-      once: true,
-      onEnter: function() { mMosaicTl.play(); }
-    });
   }
 }
 
