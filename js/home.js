@@ -7,6 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Mobile detection - disable scroll pinning on small screens
 const isMobile = window.innerWidth <= 768;
+if (isMobile) document.body.classList.add('is-mobile');
 
 // ─────────────────────────────────────────────
 // 1. HERO ENTRANCE
