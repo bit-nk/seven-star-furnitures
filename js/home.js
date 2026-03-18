@@ -5,9 +5,12 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Mobile detection - disable scroll pinning on small screens
 const isMobile = window.innerWidth <= 768;
-if (isMobile) document.body.classList.add('is-mobile');
+if (isMobile) {
+  document.body.classList.add('is-mobile');
+  // Normalize scroll on touch devices so pin + scrub work reliably
+  ScrollTrigger.normalizeScroll(true);
+}
 
 // ─────────────────────────────────────────────
 // 1. HERO ENTRANCE
@@ -24,7 +27,7 @@ heroTl
 // 2. DINING SCENE — Zoom-out with interactive text
 // ─────────────────────────────────────────────
 const diningSection = document.getElementById('diningZoom');
-if (diningSection && !isMobile) {
+if (diningSection) {
   const dImg   = diningSection.querySelector('.dining-zoom-img');
   const dText1 = document.getElementById('dText1');
   const dText2 = document.getElementById('dText2');
@@ -36,9 +39,9 @@ if (diningSection && !isMobile) {
     scrollTrigger: {
       trigger: diningSection,
       start: 'top top',
-      end: '+=4000',
+      end: isMobile ? '+=2000' : '+=4000',
       pin: true,
-      scrub: 1,
+      scrub: isMobile ? 0.5 : 1,
     }
   });
 
@@ -61,7 +64,7 @@ if (diningSection && !isMobile) {
 // 3. MOSAIC SCENE — 6 images: show → describe → shrink to grid → fade → next
 // ─────────────────────────────────────────────
 const mosaicScene = document.getElementById('mosaic-scene');
-if (mosaicScene && !isMobile) {
+if (mosaicScene) {
   const cells = [
     document.getElementById('mCell1'),
     document.getElementById('mCell2'),
@@ -112,10 +115,10 @@ if (mosaicScene && !isMobile) {
     scrollTrigger: {
       trigger: mosaicScene,
       start: 'top top',
-      end: '+=12000',
+      end: isMobile ? '+=6000' : '+=12000',
       pin: true,
       pinSpacing: true,
-      scrub: 1,
+      scrub: isMobile ? 0.5 : 1,
     }
   });
 
@@ -172,51 +175,6 @@ if (mosaicScene && !isMobile) {
 
   // Hold
   mTl.to({}, { duration: 0.03 }, t);
-}
-
-// ─────────────────────────────────────────────
-// MOBILE ANIMATIONS — Fade-in on scroll (no pinning)
-// ─────────────────────────────────────────────
-if (isMobile) {
-
-  // Dining: image + text cards fade in as they scroll into view
-  const dImg = document.querySelector('.dining-zoom-img');
-  if (dImg) {
-    gsap.set(dImg, { scale: 1, opacity: 0, y: 30 });
-    gsap.to(dImg, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
-      scrollTrigger: { trigger: dImg, start: 'top 85%', once: true }
-    });
-  }
-
-  document.querySelectorAll('.dining-text-layer').forEach((el, i) => {
-    gsap.set(el, { opacity: 0, y: 25 });
-    gsap.to(el, { opacity: 1, y: 0, duration: 0.7, delay: i * 0.1, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 90%', once: true }
-    });
-  });
-
-  // Mosaic: each cell + desc fades in on scroll
-  document.querySelectorAll('.mosaic-cell').forEach((el, i) => {
-    gsap.set(el, { opacity: 0, y: 30 });
-    gsap.to(el, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 88%', once: true }
-    });
-  });
-
-  document.querySelectorAll('.mosaic-desc').forEach(el => {
-    gsap.set(el, { opacity: 0, y: 20 });
-    gsap.to(el, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 90%', once: true }
-    });
-  });
-
-  const mText = document.getElementById('mosaicText');
-  if (mText) {
-    gsap.set(mText, { opacity: 0, y: 20 });
-    gsap.to(mText, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
-      scrollTrigger: { trigger: mText, start: 'top 90%', once: true }
-    });
-  }
 }
 
 // ─────────────────────────────────────────────
