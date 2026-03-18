@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /assets/images/*.png$
+
+Sitemap: https://bit-nk.github.io/seven-star-furnitures/sitemap.xml

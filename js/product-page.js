@@ -24,7 +24,52 @@ if (!product) {
 
 function renderProduct(p) {
   // Title (safe — textContent assignment)
-  document.title = `${p.name} - 7 Star Furnitures`;
+  document.title = `${p.name} - ${p.category} | 7 Star Furnitures Nepal`;
+
+  // Dynamic SEO meta tags
+  const setMeta = (attr, key, val) => {
+    let el = document.querySelector(`meta[${attr}="${key}"]`);
+    if (el) el.setAttribute('content', val);
+  };
+  const desc = `${p.name} - ${p.description.slice(0, 150)}. ${p.size}. ${formatPrice(p.price)} in Nepal. Free delivery above Rs. 50,000.`;
+  setMeta('name', 'description', desc);
+  setMeta('property', 'og:title', `${p.name} - 7 Star Furnitures`);
+  setMeta('property', 'og:description', desc);
+  setMeta('property', 'og:image', imgPath(p.images[0]));
+  setMeta('property', 'og:type', 'product');
+  setMeta('name', 'twitter:title', `${p.name} - 7 Star Furnitures`);
+  setMeta('name', 'twitter:description', desc);
+  setMeta('name', 'twitter:image', imgPath(p.images[0]));
+
+  // Structured Data: Product schema
+  const schema = document.createElement('script');
+  schema.type = 'application/ld+json';
+  schema.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": p.name,
+    "description": p.description,
+    "image": imgPath(p.images[0]),
+    "brand": { "@type": "Brand", "name": "7 Star Furnitures" },
+    "category": `${p.category} > ${p.subcategory}`,
+    "material": p.material,
+    "color": p.colors,
+    "weight": { "@type": "QuantitativeValue", "value": parseFloat(p.weight), "unitCode": "KGM" },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": p.rating,
+      "reviewCount": p.reviews,
+      "bestRating": 5
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": p.price,
+      "priceCurrency": "NPR",
+      "availability": p.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      "seller": { "@type": "Organization", "name": "7 Star Furnitures" }
+    }
+  });
+  document.head.appendChild(schema);
 
   // Breadcrumb (safe — textContent + encodeURIComponent)
   document.getElementById('bcCategory').textContent = p.category;
