@@ -1,0 +1,232 @@
+/* ==========================================================================
+   Responsive Breakpoints — 7 Star Furnitures
+   ========================================================================== */
+
+/* ==========================================================================
+   max-width: 1024px
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .dropdown-inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dropdown-mega {
+    width: 500px;
+  }
+
+}
+
+
+/* ==========================================================================
+   max-width: 768px
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+  /* Hamburger */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Mobile Nav */
+  .nav-links {
+    position: fixed;
+    top: 70px;
+    right: 0;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background: var(--bg);
+    flex-direction: column;
+    padding: 2rem;
+    transform: translateX(100%);
+    transition: transform 0.4s var(--ease-out);
+    overflow-y: auto;
+  }
+
+  .nav-links.open {
+    transform: translateX(0);
+  }
+
+  /* Dropdown mobile */
+  .dropdown-mega {
+    position: static;
+    width: 100%;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    transition: max-height 0.4s var(--ease-out), padding 0.4s var(--ease-out);
+  }
+
+  .dropdown.open .dropdown-mega {
+    max-height: 600px;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+  }
+
+  /* Theme toggle */
+  .theme-toggle-wrap {
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+
+  /* Scroll Scenes */
+  .scene-pin-wrap {
+    flex-direction: column;
+    height: auto;
+    padding: 2rem;
+  }
+
+  .scene-text {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    transform: none;
+    left: auto;
+    right: auto;
+    top: auto;
+    margin-bottom: 2rem;
+  }
+
+  .dining-zoom-wrap {
+    width: 95%;
+    margin: 0 auto;
+  }
+
+
+  /* Products Grid */
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Contact */
+  .contact-inner {
+    grid-template-columns: 1fr;
+  }
+
+  /* Features */
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Footer */
+  .footer-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  /* Browser grid inside monitor */
+  .browser-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Products Page Layout */
+  .products-page-inner {
+    flex-direction: column;
+  }
+
+  .filters-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 85%;
+    max-width: 320px;
+    height: 100vh;
+    z-index: 1001;
+    border-radius: 0 16px 16px 0;
+    transform: translateX(-100%);
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  .filters-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .filter-toggle-mobile {
+    display: inline-flex;
+  }
+
+  .filter-close-mobile {
+    display: block;
+    width: 100%;
+    padding: 0.6rem;
+    margin-top: 1rem;
+    background: var(--accent);
+    color: #0a0a0f;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    cursor: pointer;
+  }
+
+  /* Product Detail */
+  .product-detail-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .product-gallery {
+    position: static;
+  }
+
+  .product-actions {
+    flex-direction: column;
+  }
+
+  .features-list {
+    grid-template-columns: 1fr;
+  }
+
+  .trust-badges {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* ==========================================================================
+   max-width: 480px
+   ========================================================================== */
+
+@media (max-width: 480px) {
+  .dropdown-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+}

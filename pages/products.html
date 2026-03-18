@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src 'none';" />
+  <title>Products - 7 Star Furnitures</title>
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/products-page.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">★</span>
+        <span class="logo-text">7 Star <span class="logo-accent">Furnitures</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li class="dropdown">
+          <a href="products.html" class="nav-link dropdown-toggle active">
+            Products <svg class="chevron" width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+          </a>
+          <div class="dropdown-mega">
+            <div class="dropdown-inner">
+              <div class="dropdown-col">
+                <h4 class="dropdown-heading">Chairs</h4>
+                <a href="products.html?category=Chairs&sub=Office" class="dropdown-item">Office Chairs</a>
+                <a href="products.html?category=Chairs&sub=Home" class="dropdown-item">Home Chairs</a>
+                <a href="products.html?category=Chairs&sub=Bar" class="dropdown-item">Bar Stools</a>
+                <a href="products.html?category=Chairs&sub=Single Dining Chairs" class="dropdown-item">Dining Chairs</a>
+              </div>
+              <div class="dropdown-col">
+                <h4 class="dropdown-heading">Tables</h4>
+                <a href="products.html?category=Tables&sub=Office" class="dropdown-item">Office Tables</a>
+                <a href="products.html?category=Tables&sub=Home Desk" class="dropdown-item">Home Desks</a>
+                <a href="products.html?category=Tables&sub=Computer Table" class="dropdown-item">Computer Tables</a>
+                <a href="products.html?category=Tables&sub=Tea Table" class="dropdown-item">Tea Tables</a>
+                <a href="products.html?category=Tables&sub=Dining Set" class="dropdown-item">Dining Sets</a>
+              </div>
+              <div class="dropdown-col">
+                <h4 class="dropdown-heading">Beds</h4>
+                <a href="products.html?category=Beds&sub=Single" class="dropdown-item">Single Bed</a>
+                <a href="products.html?category=Beds&sub=Double" class="dropdown-item">Double Bed</a>
+                <a href="products.html?category=Beds&sub=King" class="dropdown-item">King Size</a>
+                <a href="products.html?category=Beds&sub=Queen" class="dropdown-item">Queen Size</a>
+                <a href="products.html?category=Beds&sub=Round" class="dropdown-item">Round Bed</a>
+              </div>
+              <div class="dropdown-col">
+                <h4 class="dropdown-heading">Sofas / Couches</h4>
+                <a href="products.html?category=Sofas / Couches&sub=5 Seater" class="dropdown-item">5 Seater</a>
+                <a href="products.html?category=Sofas / Couches&sub=7 Seater" class="dropdown-item">7 Seater</a>
+                <a href="products.html?category=Sofas / Couches&sub=10 Seater" class="dropdown-item">10 Seater</a>
+                <a href="products.html?category=Sofas / Couches&sub=15 Seater" class="dropdown-item">15 Seater</a>
+                <a href="products.html?category=Sofas / Couches&sub=L-Shaped" class="dropdown-item">L-Shaped</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+        <li class="theme-toggle-wrap">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            <span class="toggle-label">Theme</span>
+          </button>
+        </li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="page-header-inner">
+      <nav class="breadcrumb" id="breadcrumb">
+        <a href="../index.html">Home</a><span class="bc-sep">/</span><span id="bcCategory">Products</span>
+      </nav>
+      <h1 class="page-title" id="pageTitle">All Products</h1>
+      <p class="page-sub" id="pageSub">Browse our complete collection of premium imported furniture for every room in your home.</p>
+    </div>
+  </section>
+
+  <!-- FILTERS + GRID -->
+  <section class="products-page">
+    <div class="products-page-inner">
+      <aside class="filters-sidebar" id="filtersSidebar">
+        <div class="filter-header"><h3>Filters</h3><button class="filter-clear" id="filterClear">Clear All</button></div>
+        <div class="filter-group">
+          <label class="filter-label">Search</label>
+          <input type="text" class="filter-search" id="filterSearch" placeholder="Search products..." />
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Category</label>
+          <div class="filter-options" id="filterCategories"></div>
+        </div>
+        <div class="filter-group" id="filterSubGroup" style="display:none;">
+          <label class="filter-label">Subcategory</label>
+          <div class="filter-options" id="filterSubcategories"></div>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Price Range</label>
+          <div class="price-range">
+            <input type="number" id="priceMin" placeholder="Rs. Min" min="0" />
+            <span>-</span>
+            <input type="number" id="priceMax" placeholder="Rs. Max" min="0" />
+          </div>
+          <button class="btn btn-sm btn-outline" id="priceApply">Apply</button>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Sort By</label>
+          <select class="filter-select" id="filterSort">
+            <option value="featured">Featured</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Highest Rated</option>
+            <option value="name">Name A–Z</option>
+          </select>
+        </div>
+        <button class="filter-close-mobile" id="filterCloseMobile">Apply Filters</button>
+      </aside>
+
+      <div class="products-main">
+        <div class="products-toolbar">
+          <span class="results-count" id="resultsCount">0 products</span>
+          <button class="btn btn-sm btn-outline filter-toggle-mobile" id="filterToggleMobile">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>
+            Filters
+          </button>
+        </div>
+        <div class="products-grid" id="productsGrid"></div>
+        <div class="no-results" id="noResults" style="display:none;">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <h3>No products found</h3>
+          <p>Try adjusting your filters or search terms.</p>
+          <button class="btn btn-primary" id="resetFilters">Reset Filters</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">★</span>
+        <span class="logo-text">7 Star <span class="logo-accent">Furnitures</span></span>
+        <p class="footer-tagline">Premium imported furniture for Nepali homes since 2010.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col"><h4>Products</h4><a href="products.html?category=Chairs">Chairs</a><a href="products.html?category=Tables">Tables</a><a href="products.html?category=Beds">Beds</a><a href="products.html?category=Sofas / Couches">Sofas</a></div>
+        <div class="footer-col"><h4>Support</h4><a href="#">FAQ</a><a href="#">Warranty</a><a href="#">Returns</a><a href="../index.html#contact">Contact</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 7 Star Furnitures Pvt. Ltd. Kathmandu, Nepal.</p></div>
+  </footer>
+
+  <script src="../js/data/products.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="../js/products-page.js"></script>
+</body>
+</html>

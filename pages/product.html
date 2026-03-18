@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src 'none';" />
+  <title>Product - 7 Star Furnitures</title>
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/product-detail.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">★</span>
+        <span class="logo-text">7 Star <span class="logo-accent">Furnitures</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li class="dropdown">
+          <a href="products.html" class="nav-link dropdown-toggle active">
+            Products <svg class="chevron" width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+          </a>
+          <div class="dropdown-mega">
+            <div class="dropdown-inner">
+              <div class="dropdown-col">
+                <h4 class="dropdown-heading">Chairs</h4>
+                <a href="products.html?category=Chairs&sub=Office" class="dropdown-item">Office Chairs</a>
+                <a href="products.html?category=Chairs&sub=Home" class="dropdown-item">Home Chairs</a>
+                <a href="products.html?category=Chairs&sub=Bar" class="dropdown-item">Bar Stools</a>
+                <a href="products.html?category=Chairs&sub=Single Dining Chairs" class="dropdown-item">Dining Chairs</a>
+              </div>
+              <div class="dropdown-col">
+                <h4 class="dropdown-heading">Tables</h4>
+                <a href="products.html?category=Tables&sub=Office" class="dropdown-item">Office Tables</a>
+                <a href="products.html?category=Tables&sub=Home Desk" class="dropdown-item">Home Desks</a>
+                <a href="products.html?category=Tables&sub=Computer Table" class="dropdown-item">Computer Tables</a>
+                <a href="products.html?category=Tables&sub=Tea Table" class="dropdown-item">Tea Tables</a>
+                <a href="products.html?category=Tables&sub=Dining Set" class="dropdown-item">Dining Sets</a>
+              </div>
+              <div class="dropdown-col">
+                <h4 class="dropdown-heading">Beds</h4>
+                <a href="products.html?category=Beds&sub=Single" class="dropdown-item">Single Bed</a>
+                <a href="products.html?category=Beds&sub=Double" class="dropdown-item">Double Bed</a>
+                <a href="products.html?category=Beds&sub=King" class="dropdown-item">King Size</a>
+                <a href="products.html?category=Beds&sub=Queen" class="dropdown-item">Queen Size</a>
+                <a href="products.html?category=Beds&sub=Round" class="dropdown-item">Round Bed</a>
+              </div>
+              <div class="dropdown-col">
+                <h4 class="dropdown-heading">Sofas / Couches</h4>
+                <a href="products.html?category=Sofas / Couches&sub=5 Seater" class="dropdown-item">5 Seater</a>
+                <a href="products.html?category=Sofas / Couches&sub=7 Seater" class="dropdown-item">7 Seater</a>
+                <a href="products.html?category=Sofas / Couches&sub=10 Seater" class="dropdown-item">10 Seater</a>
+                <a href="products.html?category=Sofas / Couches&sub=15 Seater" class="dropdown-item">15 Seater</a>
+                <a href="products.html?category=Sofas / Couches&sub=L-Shaped" class="dropdown-item">L-Shaped</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+        <li class="theme-toggle-wrap">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            <span class="toggle-label">Theme</span>
+          </button>
+        </li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <section class="page-header page-header-sm">
+    <div class="page-header-inner">
+      <nav class="breadcrumb" id="breadcrumb">
+        <a href="../index.html">Home</a><span class="bc-sep">/</span>
+        <a href="products.html">Products</a><span class="bc-sep">/</span>
+        <a href="#" id="bcCategory">Category</a><span class="bc-sep">/</span>
+        <span id="bcProduct">Product</span>
+      </nav>
+    </div>
+  </section>
+
+  <!-- PRODUCT DETAIL -->
+  <section class="product-detail" id="productDetail">
+    <div class="product-detail-inner">
+      <div class="product-gallery">
+        <div class="gallery-main">
+          <img id="mainImage" src="" alt="" />
+          <span class="product-badge" id="productBadge"></span>
+        </div>
+        <div class="gallery-thumbs" id="galleryThumbs"></div>
+      </div>
+      <div class="product-info">
+        <div class="product-meta-top">
+          <span class="product-category-tag" id="productCatTag"></span>
+          <div class="product-rating-display" id="productRating"></div>
+        </div>
+        <h1 class="product-name" id="productName">Loading...</h1>
+        <div class="product-pricing" id="productPricing"></div>
+        <p class="product-desc" id="productDesc"></p>
+
+        <div class="product-option" id="colorOption">
+          <label class="option-label">Color:</label>
+          <div class="color-options" id="colorOptions"></div>
+        </div>
+        <div class="product-option">
+          <label class="option-label">Quantity:</label>
+          <div class="qty-selector">
+            <button class="qty-btn" id="qtyMinus">−</button>
+            <input type="number" class="qty-input" id="qtyInput" value="1" min="1" max="10" />
+            <button class="qty-btn" id="qtyPlus">+</button>
+          </div>
+        </div>
+
+        <div class="product-actions">
+          <button class="btn btn-primary btn-lg" id="addToCart">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+            Add to Cart
+          </button>
+          <button class="btn btn-outline btn-lg" id="buyNow">Buy Now</button>
+        </div>
+        <div class="product-stock" id="productStock"></div>
+
+        <div class="product-specs">
+          <h3 class="specs-title">Specifications</h3>
+          <table class="specs-table" id="specsTable"></table>
+        </div>
+        <div class="product-features">
+          <h3 class="specs-title">Features</h3>
+          <ul class="features-list" id="featuresList"></ul>
+        </div>
+
+        <div class="trust-badges">
+          <div class="trust-badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Quality Guaranteed</span>
+          </div>
+          <div class="trust-badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <span>Free Delivery Above Rs. 50,000</span>
+          </div>
+          <div class="trust-badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            <span>7-Day Easy Returns</span>
+          </div>
+          <div class="trust-badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            <span>eSewa / Khalti / COD</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RELATED -->
+  <section class="related-products">
+    <div class="section-inner">
+      <h2 class="section-title">You May Also <span class="accent">Like</span></h2>
+      <div class="products-grid" id="relatedGrid"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">★</span>
+        <span class="logo-text">7 Star <span class="logo-accent">Furnitures</span></span>
+        <p class="footer-tagline">Premium imported furniture for Nepali homes since 2010.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col"><h4>Products</h4><a href="products.html?category=Chairs">Chairs</a><a href="products.html?category=Tables">Tables</a><a href="products.html?category=Beds">Beds</a><a href="products.html?category=Sofas / Couches">Sofas</a></div>
+        <div class="footer-col"><h4>Support</h4><a href="#">FAQ</a><a href="#">Warranty</a><a href="#">Returns</a><a href="../index.html#contact">Contact</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 7 Star Furnitures Pvt. Ltd. Kathmandu, Nepal.</p></div>
+  </footer>
+
+  <script src="../js/data/products.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="../js/product-page.js"></script>
+</body>
+</html>
