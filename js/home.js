@@ -6,11 +6,7 @@
 gsap.registerPlugin(ScrollTrigger);
 
 const isMobile = window.innerWidth <= 768;
-if (isMobile) {
-  document.body.classList.add('is-mobile');
-  // Normalize scroll on touch devices so pin + scrub work reliably
-  ScrollTrigger.normalizeScroll(true);
-}
+if (isMobile) document.body.classList.add('is-mobile');
 
 // ─────────────────────────────────────────────
 // 1. HERO ENTRANCE
@@ -27,7 +23,7 @@ heroTl
 // 2. DINING SCENE — Zoom-out with interactive text
 // ─────────────────────────────────────────────
 const diningSection = document.getElementById('diningZoom');
-if (diningSection) {
+if (diningSection && !isMobile) {
   const dImg   = diningSection.querySelector('.dining-zoom-img');
   const dText1 = document.getElementById('dText1');
   const dText2 = document.getElementById('dText2');
@@ -39,9 +35,9 @@ if (diningSection) {
     scrollTrigger: {
       trigger: diningSection,
       start: 'top top',
-      end: isMobile ? '+=2000' : '+=4000',
+      end: '+=4000',
       pin: true,
-      scrub: isMobile ? 0.5 : 1,
+      scrub: 1,
     }
   });
 
@@ -64,7 +60,7 @@ if (diningSection) {
 // 3. MOSAIC SCENE — 6 images: show → describe → shrink to grid → fade → next
 // ─────────────────────────────────────────────
 const mosaicScene = document.getElementById('mosaic-scene');
-if (mosaicScene) {
+if (mosaicScene && !isMobile) {
   const cells = [
     document.getElementById('mCell1'),
     document.getElementById('mCell2'),
@@ -115,10 +111,10 @@ if (mosaicScene) {
     scrollTrigger: {
       trigger: mosaicScene,
       start: 'top top',
-      end: isMobile ? '+=6000' : '+=12000',
+      end: '+=12000',
       pin: true,
       pinSpacing: true,
-      scrub: isMobile ? 0.5 : 1,
+      scrub: 1,
     }
   });
 
@@ -175,6 +171,142 @@ if (mosaicScene) {
 
   // Hold
   mTl.to({}, { duration: 0.03 }, t);
+}
+
+// ─────────────────────────────────────────────
+// MOBILE — Auto-play animations when sections enter viewport
+// ─────────────────────────────────────────────
+if (isMobile) {
+
+  // Dining: zoom-out plays automatically when section is visible
+  const mDiningSection = document.getElementById('diningZoom');
+  if (mDiningSection) {
+    const mDImg   = mDiningSection.querySelector('.dining-zoom-img');
+    const mDText1 = document.getElementById('dText1');
+    const mDText2 = document.getElementById('dText2');
+    const mDText3 = document.getElementById('dText3');
+
+    gsap.set(mDImg, { scale: 1.8, transformOrigin: '50% 40%' });
+    [mDText1, mDText2, mDText3].forEach(function(el) {
+      if (el) gsap.set(el, { opacity: 0, y: 20 });
+    });
+
+    const mDiningTl = gsap.timeline({ paused: true });
+    mDiningTl
+      .to(mDImg, { scale: 1.4, duration: 1.5, ease: 'power1.inOut' })
+      .to(mDText1, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.3)
+      .to(mDText1, { opacity: 0, duration: 0.4 }, 1.5)
+      .to(mDImg, { scale: 1.1, duration: 1.5, ease: 'power1.inOut' }, 1.5)
+      .to(mDText2, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 2.0)
+      .to(mDText2, { opacity: 0, duration: 0.4 }, 3.2)
+      .to(mDImg, { scale: 1, duration: 1.2, ease: 'power2.out' }, 3.2)
+      .to(mDText3, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 3.8);
+
+    ScrollTrigger.create({
+      trigger: mDiningSection,
+      start: 'top 80%',
+      once: true,
+      onEnter: function() { mDiningTl.play(); }
+    });
+  }
+
+  // Mosaic: images fade in one by one then form grid
+  const mMosaicScene = document.getElementById('mosaic-scene');
+  if (mMosaicScene) {
+    var mCells = [];
+    var mDescs = [];
+    for (var i = 1; i <= 6; i++) {
+      mCells.push(document.getElementById('mCell' + i));
+      mDescs.push(document.getElementById('mDesc' + i));
+    }
+    var mMosaicText = document.getElementById('mosaicText');
+
+    // Grid layout values (same as desktop)
+    var M = 10, G = 0.6;
+    var cW = (80 - G * 2) / 3;
+    var rH = (80 - G) / 2;
+    var mGrid = [
+      { x: M + cW * 2 + G * 2, y: M          },
+      { x: M + cW + G,          y: M          },
+      { x: M,                    y: M          },
+      { x: M + cW * 2 + G * 2, y: M + rH + G },
+      { x: M + cW + G,          y: M + rH + G },
+      { x: M,                    y: M + rH + G },
+    ];
+
+    var mIW = 85, mIH = 85;
+    var mIX = (100 - mIW) / 2, mIY = (100 - mIH) / 2;
+
+    mCells.forEach(function(cell, i) {
+      if (cell) gsap.set(cell, {
+        left: mIX + '%', top: mIY + '%', width: mIW + '%', height: mIH + '%',
+        opacity: 0, zIndex: 30 - i,
+      });
+    });
+    mDescs.forEach(function(d) { if (d) gsap.set(d, { opacity: 0, y: 20 }); });
+    if (mMosaicText) gsap.set(mMosaicText, { opacity: 0, y: 25 });
+
+    var mMosaicTl = gsap.timeline({ paused: true });
+    var mt = 0;
+
+    mCells.forEach(function(cell, i) {
+      if (!cell) return;
+      var g = mGrid[i];
+      var desc = mDescs[i];
+      var label = cell.querySelector('.mosaic-label');
+
+      // Fade in at full size
+      mMosaicTl.set(cell, { left: mIX + '%', top: mIY + '%', width: mIW + '%', height: mIH + '%' }, mt);
+      mMosaicTl.to(cell, { opacity: 1, duration: 0.3 }, mt);
+      mt += 0.3;
+
+      // Show description briefly
+      if (desc) {
+        mMosaicTl.to(desc, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, mt);
+        mt += 0.8;
+        mMosaicTl.to(desc, { opacity: 0, duration: 0.3 }, mt);
+        mt += 0.3;
+      }
+
+      // Shrink to grid slot
+      mMosaicTl.to(cell, {
+        left: g.x + '%', top: g.y + '%',
+        width: cW + '%', height: rH + '%',
+        duration: 0.6, ease: 'power2.inOut',
+      }, mt);
+      if (label) mMosaicTl.to(label, { opacity: 1, duration: 0.2 }, mt + 0.5);
+      mt += 0.7;
+
+      // Fade out (unless last)
+      if (i < 5) {
+        mMosaicTl.to(cell, { opacity: 0, duration: 0.3 }, mt);
+        mt += 0.4;
+      }
+    });
+
+    // Reveal all in grid
+    mt += 0.1;
+    for (var p = 0; p < 5; p++) {
+      if (!mCells[p]) continue;
+      var pg = mGrid[p];
+      mMosaicTl.set(mCells[p], { left: pg.x + '%', top: pg.y + '%', width: cW + '%', height: rH + '%' }, mt);
+      mMosaicTl.to(mCells[p], { opacity: 1, duration: 0.4 }, mt);
+      var lb = mCells[p].querySelector('.mosaic-label');
+      if (lb) mMosaicTl.to(lb, { opacity: 1, duration: 0.2 }, mt + 0.3);
+    }
+    mt += 0.5;
+
+    if (mMosaicText) {
+      mMosaicTl.to(mMosaicText, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, mt);
+    }
+
+    ScrollTrigger.create({
+      trigger: mMosaicScene,
+      start: 'top 80%',
+      once: true,
+      onEnter: function() { mMosaicTl.play(); }
+    });
+  }
 }
 
 // ─────────────────────────────────────────────
