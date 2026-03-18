@@ -175,6 +175,51 @@ if (mosaicScene && !isMobile) {
 }
 
 // ─────────────────────────────────────────────
+// MOBILE ANIMATIONS — Fade-in on scroll (no pinning)
+// ─────────────────────────────────────────────
+if (isMobile) {
+
+  // Dining: image + text cards fade in as they scroll into view
+  const dImg = document.querySelector('.dining-zoom-img');
+  if (dImg) {
+    gsap.set(dImg, { scale: 1, opacity: 0, y: 30 });
+    gsap.to(dImg, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+      scrollTrigger: { trigger: dImg, start: 'top 85%', once: true }
+    });
+  }
+
+  document.querySelectorAll('.dining-text-layer').forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 25 });
+    gsap.to(el, { opacity: 1, y: 0, duration: 0.7, delay: i * 0.1, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 90%', once: true }
+    });
+  });
+
+  // Mosaic: each cell + desc fades in on scroll
+  document.querySelectorAll('.mosaic-cell').forEach((el, i) => {
+    gsap.set(el, { opacity: 0, y: 30 });
+    gsap.to(el, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+    });
+  });
+
+  document.querySelectorAll('.mosaic-desc').forEach(el => {
+    gsap.set(el, { opacity: 0, y: 20 });
+    gsap.to(el, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 90%', once: true }
+    });
+  });
+
+  const mText = document.getElementById('mosaicText');
+  if (mText) {
+    gsap.set(mText, { opacity: 0, y: 20 });
+    gsap.to(mText, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
+      scrollTrigger: { trigger: mText, start: 'top 90%', once: true }
+    });
+  }
+}
+
+// ─────────────────────────────────────────────
 // 4. BESTSELLERS — Populate grid from PRODUCTS
 // ─────────────────────────────────────────────
 const bestsellersGrid = document.getElementById('bestsellersGrid');
