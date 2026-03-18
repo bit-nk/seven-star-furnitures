@@ -449,7 +449,7 @@
 
 /* Dining scene: tall outer section, sticky inner content */
 body.is-mobile #dining-scene {
-  height: 300vh;
+  height: 600vh;
   position: relative;
 }
 
@@ -466,7 +466,7 @@ body.is-mobile .dining-text-3 .btn {
 
 /* Mosaic scene: tall outer section, sticky inner content */
 body.is-mobile #mosaic-scene {
-  height: 900vh;
+  height: 1800vh;
   position: relative;
 }
 
