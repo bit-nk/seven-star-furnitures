@@ -175,47 +175,55 @@ if (mosaicScene && !isMobile) {
 }
 
 // ─────────────────────────────────────────────
-// MOBILE ANIMATIONS — Fade-in on scroll (no pinning)
+// MOBILE ANIMATIONS — Fade-in on scroll (IntersectionObserver for reliability)
 // ─────────────────────────────────────────────
 if (isMobile) {
+
+  // Use IntersectionObserver — works reliably on real mobile touch browsers
+  // where ScrollTrigger's once:true can fail to fire
+  function mobileFadeIn(el, yOffset) {
+    yOffset = yOffset || 30;
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(' + yOffset + 'px)';
+    el.style.transition = 'opacity 0.7s ease-out, transform 0.7s ease-out';
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(el);
+  }
 
   // Dining: image + text cards fade in as they scroll into view
   const dImg = document.querySelector('.dining-zoom-img');
   if (dImg) {
-    gsap.set(dImg, { scale: 1, opacity: 0, y: 30 });
-    gsap.to(dImg, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
-      scrollTrigger: { trigger: dImg, start: 'top 85%', once: true }
-    });
+    gsap.set(dImg, { scale: 1 });
+    mobileFadeIn(dImg, 30);
   }
 
-  document.querySelectorAll('.dining-text-layer').forEach((el, i) => {
-    gsap.set(el, { opacity: 0, y: 25 });
-    gsap.to(el, { opacity: 1, y: 0, duration: 0.7, delay: i * 0.1, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 90%', once: true }
-    });
+  document.querySelectorAll('.dining-text-layer').forEach(function(el, i) {
+    el.style.transitionDelay = (i * 0.1) + 's';
+    mobileFadeIn(el, 25);
   });
 
   // Mosaic: each cell + desc fades in on scroll
-  document.querySelectorAll('.mosaic-cell').forEach((el, i) => {
-    gsap.set(el, { opacity: 0, y: 30 });
-    gsap.to(el, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 88%', once: true }
-    });
+  document.querySelectorAll('.mosaic-cell').forEach(function(el) {
+    mobileFadeIn(el, 30);
   });
 
-  document.querySelectorAll('.mosaic-desc').forEach(el => {
-    gsap.set(el, { opacity: 0, y: 20 });
-    gsap.to(el, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 90%', once: true }
-    });
+  document.querySelectorAll('.mosaic-desc').forEach(function(el) {
+    mobileFadeIn(el, 20);
   });
 
   const mText = document.getElementById('mosaicText');
   if (mText) {
-    gsap.set(mText, { opacity: 0, y: 20 });
-    gsap.to(mText, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
-      scrollTrigger: { trigger: mText, start: 'top 90%', once: true }
-    });
+    mobileFadeIn(mText, 20);
   }
 }
 
