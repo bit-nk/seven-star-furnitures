@@ -466,7 +466,7 @@ body.is-mobile .dining-text-3 .btn {
 
 /* Mosaic scene: tall outer section, sticky inner content */
 body.is-mobile #mosaic-scene {
-  height: 600vh;
+  height: 900vh;
   position: relative;
 }
 

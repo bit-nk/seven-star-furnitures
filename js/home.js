@@ -258,6 +258,12 @@ if (isMobile) {
     });
 
     var t = 0;
+    // Each image step: ~0.14 of timeline → 6 images × 0.14 = 0.84, leaves room for grid reveal
+    // Scroll 1: image starts fading in (0.03)
+    // Scroll 2: image fully visible + text appears (0.03)
+    // Scroll 3: image shrinks to grid, text stays (0.04)
+    // Scroll 4: text fades away (0.02)
+    // Scroll 5: pause before next image (0.02)
 
     mCells.forEach(function(cell, i) {
       if (!cell) return;
@@ -265,41 +271,51 @@ if (isMobile) {
       var desc = mDescs[i];
       var label = cell.querySelector('.mosaic-label');
 
+      // 1) Reset to full size and start fading in
       mTl.set(cell, { left: mIX + '%', top: mIY + '%', width: mIW + '%', height: mIH + '%' }, t);
-      mTl.to(cell, { opacity: 1, duration: 0.015 }, t);
-      t += 0.015;
+      mTl.to(cell, { opacity: 1, duration: 0.03 }, t);
+      t += 0.03;
 
+      // 2) Image fully visible, text appears
       if (desc) {
-        mTl.to(desc, { opacity: 1, y: 0, duration: 0.02, ease: 'power2.out' }, t);
-        t += 0.04;
-        mTl.to(desc, { opacity: 0, duration: 0.012 }, t);
-        t += 0.012;
+        mTl.to(desc, { opacity: 1, y: 0, duration: 0.03, ease: 'power2.out' }, t);
       }
+      t += 0.03;
 
+      // 3) Image shrinks to grid position — text stays visible during this
       mTl.to(cell, {
         left: g.x + '%', top: g.y + '%',
         width: cW + '%', height: rH + '%',
-        duration: 0.035, ease: 'power2.inOut',
+        duration: 0.04, ease: 'power2.inOut',
       }, t);
-      if (label) mTl.to(label, { opacity: 1, duration: 0.01 }, t + 0.03);
+      if (label) mTl.to(label, { opacity: 1, duration: 0.02 }, t + 0.03);
       t += 0.04;
 
+      // 4) Now text fades away
+      if (desc) {
+        mTl.to(desc, { opacity: 0, duration: 0.02 }, t);
+      }
+      t += 0.02;
+
+      // 5) Fade out cell (unless last image) + pause before next
       if (i < 5) {
-        mTl.to(cell, { opacity: 0, duration: 0.015 }, t);
+        mTl.to(cell, { opacity: 0, duration: 0.02 }, t);
         t += 0.02;
       }
+      t += 0.02;
     });
 
-    t += 0.005;
+    // Reveal all in grid
+    t += 0.01;
     for (var p = 0; p < 5; p++) {
       if (!mCells[p]) continue;
       var pg = mGrid[p];
       mTl.set(mCells[p], { left: pg.x + '%', top: pg.y + '%', width: cW + '%', height: rH + '%' }, t);
-      mTl.to(mCells[p], { opacity: 1, duration: 0.02 }, t);
+      mTl.to(mCells[p], { opacity: 1, duration: 0.03 }, t);
       var lb = mCells[p].querySelector('.mosaic-label');
-      if (lb) mTl.to(lb, { opacity: 1, duration: 0.01 }, t + 0.015);
+      if (lb) mTl.to(lb, { opacity: 1, duration: 0.02 }, t + 0.02);
     }
-    t += 0.03;
+    t += 0.04;
 
     if (mMosaicText) {
       mTl.to(mMosaicText, { opacity: 1, y: 0, duration: 0.04, ease: 'power2.out' }, t);
