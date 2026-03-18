@@ -5,6 +5,9 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Mobile detection - disable scroll pinning on small screens
+const isMobile = window.innerWidth <= 768;
+
 // ─────────────────────────────────────────────
 // 1. HERO ENTRANCE
 // ─────────────────────────────────────────────
@@ -20,13 +23,12 @@ heroTl
 // 2. DINING SCENE — Zoom-out with interactive text
 // ─────────────────────────────────────────────
 const diningSection = document.getElementById('diningZoom');
-if (diningSection) {
+if (diningSection && !isMobile) {
   const dImg   = diningSection.querySelector('.dining-zoom-img');
   const dText1 = document.getElementById('dText1');
   const dText2 = document.getElementById('dText2');
   const dText3 = document.getElementById('dText3');
 
-  // Start moderately zoomed in on the table
   gsap.set(dImg, { scale: 1.8, transformOrigin: '50% 40%' });
 
   const diningTl = gsap.timeline({
@@ -40,27 +42,17 @@ if (diningSection) {
   });
 
   diningTl
-    // Phase 1 (0–0.28): Zoomed in showing table detail, Text 1 appears on the left
     .to(dText1, { opacity: 1, y: 0, duration: 0.10, ease: 'power2.out' }, 0.02)
     .from(dText1, { y: 30, duration: 0.10 }, 0.02)
-    // Gently zoom out
     .to(dImg, { scale: 1.4, duration: 0.28, ease: 'power1.inOut' }, 0)
-    // Fade out text 1
     .to(dText1, { opacity: 0, duration: 0.08 }, 0.22)
-
-    // Phase 2 (0.30–0.58): Mid-zoom showing chairs, Text 2 appears on right
     .to(dText2, { opacity: 1, y: 0, duration: 0.10, ease: 'power2.out' }, 0.32)
     .from(dText2, { y: 30, duration: 0.10 }, 0.32)
     .to(dImg, { scale: 1.1, duration: 0.28, ease: 'power1.inOut' }, 0.30)
-    // Fade out text 2
     .to(dText2, { opacity: 0, duration: 0.08 }, 0.54)
-
-    // Phase 3 (0.58–0.85): Full zoom-out, Text 3 appears at bottom center
     .to(dImg, { scale: 1, duration: 0.22, ease: 'power2.out' }, 0.58)
     .to(dText3, { opacity: 1, y: 0, duration: 0.12, ease: 'power2.out' }, 0.68)
     .from(dText3, { y: 25, duration: 0.12 }, 0.68)
-
-    // Hold final view
     .to({}, { duration: 0.15 });
 }
 
@@ -68,7 +60,7 @@ if (diningSection) {
 // 3. MOSAIC SCENE — 6 images: show → describe → shrink to grid → fade → next
 // ─────────────────────────────────────────────
 const mosaicScene = document.getElementById('mosaic-scene');
-if (mosaicScene) {
+if (mosaicScene && !isMobile) {
   const cells = [
     document.getElementById('mCell1'),
     document.getElementById('mCell2'),
